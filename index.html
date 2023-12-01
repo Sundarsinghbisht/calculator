@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Calculator</title>
+<style>
+#calculator {
+ text-align: center;
+ font-size: 2em;
+}
+
+button {
+ font-size: 1em;
+ padding: 10px;
+ margin: 5px;
+}
+</style>
+</head>
+<body>
+
+<div id="calculator">
+ <input type="text" id="display" readonly>
+ <br>
+ <button onclick="clearDisplay()">C</button>
+ <button onclick="appendNumber(7)">7</button>
+ <button onclick="appendNumber(8)">8</button>
+ <button onclick="appendNumber(9)">9</button>
+ <button onclick="appendOperator('/')">/</button>
+ <br>
+ <button onclick="appendNumber(4)">4</button>
+ <button onclick="appendNumber(5)">5</button>
+ <button onclick="appendNumber(6)">6</button>
+ <button onclick="appendOperator('*')">*</button>
+ <br>
+ <button onclick="appendNumber(1)">1</button>
+ <button onclick="appendNumber(2)">2</button>
+ <button onclick="appendNumber(3)">3</button>
+ <button onclick="appendOperator('-')">-</button>
+ <br>
+ <button onclick="appendNumber(0)">0</button>
+ <button onclick="appendOperator('.')">.</button>
+ <button onclick="calculateResult()">=</button>
+ <button onclick="appendOperator('+')">+</button>
+</div>
+
+<script>
+let display = document.getElementById('display');
+let clear = true;
+let operator = '';
+let operand1 = 0;
+let operand2 = null;
+
+function appendNumber(number) {
+ if (clear) {
+    display.value = number;
+    clear = false;
+ } else {
+    display.value += number;
+ }
+}
+
+function appendOperator(op) {
+ if (!isNaN(display.value)) {
+    operand1 = parseFloat(display.value);
+    operator = op;
+    display.value = '';
+    clear = true;
+ }
+}
+
+function calculateResult() {
+ if (!isNaN(display.value)) {
+    operand2 = parseFloat(display.value);
+    switch (operator) {
+      case '+':
+        display.value = operand1 + operand2;
+        break;
+      case '-':
+        display.value = operand1 - operand2;
+        break;
+      case '*':
+        display.value = operand1 * operand2;
+        break;
+      case '/':
+        display.value = operand1 / operand2;
+        break;
+    }
+    clear = true;
+ }
+}
+
+function clearDisplay() {
+ display.value = '';
+ clear = true;
+ operator = '';
+ operand1 = 0;
+ operand2 = null;
+}
+</script>
+
+</body>
+</html>
